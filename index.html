@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111111">
+<title>Maison Cygne — Swan Girl AU</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}
+button{color:inherit;cursor:pointer}
+.phone{width:min(100%,430px);min-height:100dvh;margin:auto;padding:12px;background:#111;border:2px solid #383838;border-radius:35px;position:relative;overflow:hidden}
+.wallpaper{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 20%,#888 0%,#333 20%,transparent 42%),radial-gradient(ellipse at 80% 65%,#555,transparent 40%),linear-gradient(145deg,#080808,#252525 45%,#050505);overflow:hidden}
+.wallpaper:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 25% 20%,transparent 0 9px,#ffffff16 10px 12px,transparent 14px 24px);transform:rotate(-20deg) scale(1.5)}
+.screen{position:relative;z-index:1;min-height:calc(100dvh - 28px);display:flex;flex-direction:column}
+.status{display:flex;justify-content:space-between;padding:8px 10px;font-size:13px;font-weight:650}
+.island{width:105px;height:27px;background:#000;border-radius:20px;margin:-32px auto 0}
+.lock{text-align:center;padding:65px 15px 25px}
+.date{font-size:15px;opacity:.9}
+.clock{font-size:76px;font-weight:250;letter-spacing:-4px;margin:8px 0}
+.quote{font-family:Georgia,serif;font-style:italic;font-size:15px;opacity:.9}
+.notification{margin-top:35px;text-align:left;background:#eee;color:#202020;padding:14px;border-radius:20px;font-size:14px;backdrop-filter:blur(20px)}
+.notif-small{font-size:11px;color:#555;margin-bottom:5px}
+.unlock{margin-top:auto;text-align:center;padding:20px;font-size:13px;opacity:.85}
+.home{display:none;padding:24px 8px 14px;flex:1}
+.widgets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 25px}
+.widget{border-radius:22px;padding:17px;background:#f3f0e9;color:#191919;min-height:105px}
+.widget.dark{background:#303c42;color:white}
+.widget small{opacity:.7}
+.widget strong{display:block;font-size:30px;font-weight:400;margin-top:8px}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 8px}
+.app{border:0;background:transparent;text-align:center;font-size:11px;padding:0}
+.app-icon{display:grid;place-items:center;width:55px;height:55px;margin:0 auto 7px;border-radius:17px;font-size:27px;background:linear-gradient(145deg,#f6f3ed,#d5d0c8);color:#242424;box-shadow:0 4px 12px #0005}
+.app:nth-child(2n) .app-icon{background:linear-gradient(145deg,#e8e2d5,#aaa18f)}
+.app:nth-child(3n) .app-icon{background:linear-gradient(145deg,#4e625e,#1c2927);color:#fff}
+.dock{margin-top:auto;display:flex;justify-content:space-around;padding:12px 6px;background:#ffffff25;border:1px solid #ffffff30;border-radius:25px}
+.dock button{border:0;background:transparent;font-size:25px}
+.homebar{width:105px;height:4px;border-radius:8px;background:white;margin:15px auto 3px}
+.panel{display:none;position:absolute;inset:0;z-index:5;background:#f6f3ed;color:#202020;padding:20px 17px;overflow:auto;border-radius:28px}
+.panel h2{font-family:Georgia,serif;font-size:27px;font-weight:400;margin:22px 0 8px}
+.panel p{line-height:1.55}
+.back{border:0;background:#e2ded6;color:#222;padding:9px 14px;border-radius:20px}
+.card{background:white;border:1px solid #e7e1d8;border-radius:17px;padding:14px;margin:12px 0}
+.chat{background:#dce8dc;padding:11px 13px;border-radius:17px;margin:10px 0;max-width:88%;line-height:1.45}
+.chat.me{margin-left:auto;background:#d8dfea}
+input,textarea{width:100%;border:1px solid #d2cbc0;border-radius:12px;padding:12px;background:white;color:#222;margin:7px 0}
+.action{background:#273832;color:white;border:0;border-radius:12px;padding:12px 15px;margin:5px 0}
+.secondary{background:#e6e0d6;color:#222}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.photo{height:130px;border-radius:15px;background:linear-gradient(145deg,#e9e5dc,#5a615d);display:grid;place-items:center;font-size:38px}
+#incoming{display:none;position:absolute;inset:0;z-index:10;background:linear-gradient(#34443d,#111);padding:70px 20px;text-align:center}
+.callbtn{border:0;border-radius:50%;width:65px;height:65px;font-size:24px;margin:12px}
+footer{text-align:center;font-size:10px;opacity:.65;padding:5px}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="wallpaper"></div>
+<div class="screen">
+  <div class="status"><span id="time">23:11</span><span>◉  Wi-Fi ▰</span></div>
+  <div class="island"></div>
+
+  <section class="lock" id="lock">
+    <div class="date" id="date">Thursday, October 22</div>
+    <div class="clock" id="clock">23:11</div>
+    <div class="quote">“soft as feathers, strong as a swan.”</div>
+    <div class="notification" onclick="unlock()">
+      <div class="notif-small">MAISON CYGNE · now</div>
+      <b>Messages</b><br>There's something I never told you.
+    </div>
+    <div class="unlock" onclick="unlock()">⌃<br>Tap to open</div>
+  </section>
+
+  <section class="home" id="home">
+    <div class="widgets">
+      <div class="widget"><small id="day">THURSDAY</small><strong id="daynum">22</strong><small>little things matter.</small></div>
+      <div class="widget dark"><small>✧ DAILY NOTE</small><strong>白鳥</strong><small>be gentle with yourself</small></div>
+    </div>
+    <div class="apps">
+      <button class="app" onclick="openApp('Messages')"><span class="app-icon">☏</span>Messages</button>
+      <button class="app" onclick="openApp('Mail')"><span class="app-icon">✉</span>Mail</button>
+      <button class="app" onclick="openApp('Photos')"><span class="app-icon">✿</span>Photos</button>
+      <button class="app" onclick="openApp('Camera')"><span class="app-icon">◎</span>Camera</button>
+      <button class="app" onclick="openApp('Journal')"><span class="app-icon">✎</span>Journal</button>
+      <button class="app" onclick="openApp('Instagram')"><span class="app-icon">▧</span>Instagram</button>
+      <button class="app" onclick="openApp('X')"><span class="app-icon">𝕏</span>X</button>
+      <button class="app" onclick="openApp('Settings')"><span class="app-icon">⚙</span>Settings</button>
+    </div>
+    <div class="dock">
+      <button onclick="incoming()">☎</button>
+      <button onclick="openApp('Camera')">◎</button>
+      <button onclick="openApp('Messages')">☏</button>
+      <button onclick="openApp('Photos')">✿</button>
+    </div>
+  </section>
+
+  <section class="panel" id="panel">
+    <button class="back" onclick="closeApp()">‹ Home</button>
+    <div id="content"></div>
+  </section>
+
+  <section id="incoming">
+    <div style="font-size:60px;margin:30px">🦢</div>
+    <div style="opacity:.7">incoming call</div>
+    <h2 id="caller">Arka Pradipta</h2>
+    <p>mobile · Maison Cygne</p>
+    <div style="margin-top:90px">
+      <button class="callbtn" style="background:#c84c49" onclick="endCall()">✕</button>
+      <button class="callbtn" style="background:#5b9d68" onclick="answerCall()">☎</button>
+    </div>
+    <p id="callstatus">Decline　　　　 Accept</p>
+  </section>
+  <div class="homebar" onclick="closeApp()"></div>
+  <footer>MAISON CYGNE · A FICTIONAL INTERACTIVE AU</footer>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let notes = localStorage.getItem('swanNote') || '';
+let messages = [
+ {from:'Arka',text:'Kamu masih suka melihat angsa setiap kali ke danau?'},
+ {from:'You',text:'Masih. Mereka kelihatan tenang, ya.'},
+ {from:'Arka',text:'Aku ingin cerita sesuatu, kalau kamu bersedia mendengarkan.'}
+];
+let mailRead = false, ringtone = null, ringing = false;
+
+function updateClock(){
+ const d=new Date();
+ const t=d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',hour12:false});
+ $('time').textContent=t;$('clock').textContent=t;
+ $('date').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+ $('day').textContent=d.toLocaleDateString('en-US',{weekday:'long'}).toUpperCase();
+ $('daynum').textContent=d.getDate();
+}
+updateClock();setInterval(updateClock,1000);
+
+function unlock(){
+ $('lock').style.display='none';$('home').style.display='block';
+}
+function closeApp(){
+ $('panel').style.display='none';$('incoming').style.display='none';
+ $('home').style.display='block';stopRingtone();
+}
+function openApp(name){
+ $('lock').style.display='none';$('home').style.display='none';
+ $('panel').style.display='block';
+ const c=$('content');
+ if(name==='Messages') c.innerHTML=`
+ <h2>Messages</h2><p>Arka Pradipta · iMessage</p><div id="chat"></div>
+ <input id="msg" placeholder="iMessage"><button class="action" onclick="sendMessage()">Send ↑</button>`;
+ if(name==='Messages') renderChat();
+ if(name==='Mail') c.innerHTML=`
+ <h2>Mail</h2><div class="card" onclick="readMail()"><small>FROM: ARKA PRADIPTA</small><h3>About us, maybe?</h3><p>There are things I couldn't say out loud...</p><small>Tap to read</small></div>
+ <div id="email"></div><button class="action" onclick="composeMail()">Compose email ✎</button>`;
+ if(name==='Photos') c.innerHTML=`
+ <h2>Photos</h2><p>Memories · 4 items</p><div class="photo-grid">
+ <div class="photo">🦢</div><div class="photo">🌊</div><div class="photo">☁️</div><div class="photo">🕊️</div></div>
+ <p>Some memories are quiet enough to stay.</p>`;
+ if(name==='Camera') c.innerHTML=`
+ <h2>Camera</h2><div style="height:300px;background:#222;border-radius:20px;display:grid;place-items:center;font-size:70px">🦢</div>
+ <p>Camera simulation. Real camera access requires HTTPS and permission.</p>
+ <button class="action" onclick="takePhoto()">◎ Take photo</button><div id="photoMsg"></div>`;
+ if(name==='Journal') c.innerHTML=`
+ <h2>Journal</h2><p>Dear diary,</p><textarea id="note" rows="7" placeholder="Write what your heart cannot say...">${escapeHTML(notes)}</textarea>
+ <button class="action" onclick="saveNote()">Save entry</button><p id="saved"></p>`;
+ if(name==='Instagram'||name==='X') c.innerHTML=`
+ <h2>${name}</h2><div class="card"><small>@swan.girl · 2h</small><p>learning to be soft without losing myself. 🦢</p><small>♡ 128　↗ share</small></div>
+ <div class="card"><small>@arka.p · 5h</small><p>Some apologies take longer than a message.</p><small>♡ 64　↗ share</small></div>
+ <input id="post" placeholder="Write a fictional post..."><button class="action" onclick="addPost('${name}')">Post</button><div id="newpost"></div>`;
+ if(name==='Settings') c.innerHTML=`
+ <h2>Settings</h2><div class="card"><b>Maison Cygne</b><p>Swan Girl aesthetic · Version 1.0</p></div>
+ <div class="card"><b>Sound & notifications</b><p>Enable a demo ringtone or notification sound.</p>
+ <button class="action" onclick="testRingtone()">Test ringtone ♫</button>
+ <button class="action secondary" onclick="stopRingtone()">Stop sound</button></div>
+ <div class="card"><b>About this AU</b><p>All characters, messages, and events are fictional.</p></div>`;
+}
+function escapeHTML(s){
+ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function renderChat(){
+ $('chat').innerHTML=messages.map(m=>`<div class="chat ${m.from==='You'?'me':''}"><small>${m.from}</small><br>${escapeHTML(m.text)}</div>`).join('');
+}
+function sendMessage(){
+ const i=$('msg');if(!i.value.trim())return;
+ messages.push({from:'You',text:i.value.trim()});i.value='';renderChat();
+}
+function readMail(){
+ mailRead=true;
+ $('email').innerHTML=`<div class="card"><small>FROM ARKA · 22:14</small><p>Raya,</p><p>Aku nggak tahu bagaimana memulai ini. Aku pikir menjauh akan membuatmu lebih kuat, tapi aku tidak pernah benar-benar bertanya apa yang kamu butuhkan.</p><p>Maaf karena membuatmu merasa sendirian.</p><p>— Arka</p></div>`;
+}
+function composeMail(){
+ $('email').innerHTML=`<div class="card"><input placeholder="To"><input placeholder="Subject"><textarea rows="4" placeholder="Write your email..."></textarea><button class="action" onclick="alert('Email ini disimpan sebagai simulasi, bukan dikirim sungguhan.')">Send email</button></div>`;
+}
+function saveNote(){
+ notes=$('note').value;localStorage.setItem('swanNote',notes);$('saved').textContent='Saved on this browser ♡';
+}
+function takePhoto(){
+ $('photoMsg').innerHTML='<p>Photo captured! 🦢 (simulation)</p>';
+}
+function addPost(name){
+ const i=$('post');if(!i.value.trim())return;
+ $('newpost').innerHTML=`<div class="card"><small>@swan.girl · just now</small><p>${escapeHTML(i.value)}</p></div>`;
+ i.value='';
+}
+function incoming(){
+ $('home').style.display='none';$('lock').style.display='none';
+ $('incoming').style.display='block';$('callstatus').textContent='Decline　　　　 Accept';
+ testRingtone();
+}
+function answerCall(){
+ stopRingtone();$('caller').textContent='Arka · connected';
+ $('callstatus').textContent='Call connected (simulation)';
+}
+function endCall(){
+ stopRingtone();$('incoming').style.display='none';$('home').style.display='block';
+}
+function testRingtone(){
+ stopRingtone();
+ try{
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return;
+  ringtone=new AC();
+  const notes=[659,784,988,784,659,523];
+  notes.forEach((freq,i)=>{
+   const osc=ringtone.createOscillator(),gain=ringtone.createGain();
+   osc.type='sine';osc.frequency.value=freq;
+   gain.gain.setValueAtTime(0.0001,ringtone.currentTime+i*.22);
+   gain.gain.exponentialRampToValueAtTime(.12,ringtone.currentTime+i*.22+.03);
+   gain.gain.exponentialRampToValueAtTime(.0001,ringtone.currentTime+i*.22+.18);
+   osc.connect(gain);gain.connect(ringtone.destination);
+   osc.start(ringtone.currentTime+i*.22);osc.stop(ringtone.currentTime+i*.22+.2);
+  });
+ }catch(e){}
+}
+function stopRingtone(){
+ if(ringtone){ringtone.close();ringtone=null;}
+}
+</script>
+</body>
+</html>
